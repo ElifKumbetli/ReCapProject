@@ -1,10 +1,19 @@
-﻿namespace ConsoleUI
+﻿using Business.Concrete;
+using DataAccess.Concrete.InMemory;
+using Entities.Concrete;
+
+namespace ConsoleUI
 {
-    internal class Program
+     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+
+            CarManager carManager = new CarManager(new InMemoryCarDal());
+
+            foreach (var car in carManager.GetAll())
+            {
+               Console.WriteLine(car.Description);            }
         }
     }
 }

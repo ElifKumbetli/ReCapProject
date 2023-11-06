@@ -44,15 +44,15 @@ namespace DataAccess.Concrete.InMemory
 
         public void Add(Car car)
         {
-            _cars.Add(car);      
+            _cars.Add(car);
         }
 
         //SingleOrDefault tek tek dolaşmaya yarıyor.
         //SingleOrDefault(c=>); Bu kod yapacağımız bir foreach e tekabül ediyor.
-       
+
         public void Delete(Car car)
         {
-            Car carToDelete = _cars.SingleOrDefault(c=>c.CarId==car.CarId);
+            Car carToDelete = _cars.SingleOrDefault(c => c.CarId == car.CarId);
 
             _cars.Remove(carToDelete);
         }
@@ -64,22 +64,22 @@ namespace DataAccess.Concrete.InMemory
         }
 
 
-        public List<Car> GetById()
+        public List<Car> GetById(int carId)
         {
-           
+          return _cars.Where(c => c. CarId == carId).ToList();
         }
-
+        //Where-->Yeni liste haline getirip döndz
 
         public void Update(Car car)
         {
             //Gönderdiğim araba Id sine sahip listedeki arabayı bul demek.
             Car carToUpdate = _cars.SingleOrDefault(c => c.CarId == car.CarId);
-            carToUpdate.CarId= car.CarId;
-            carToUpdate.ColorId= car.ColorId;
-            carToUpdate.ModelYear= car.ModelYear;
-            carToUpdate.BrandId= car.BrandId;
-            carToUpdate.DailyPrice= car.DailyPrice;
-            carToUpdate.Description=car.Description;    
+            carToUpdate.CarId = car.CarId;
+            carToUpdate.ColorId = car.ColorId;
+            carToUpdate.ModelYear = car.ModelYear;
+            carToUpdate.BrandId = car.BrandId;
+            carToUpdate.DailyPrice = car.DailyPrice;
+            carToUpdate.Description = car.Description;
 
         }
     }
