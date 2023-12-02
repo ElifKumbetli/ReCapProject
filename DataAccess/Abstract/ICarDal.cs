@@ -13,22 +13,9 @@ namespace DataAccess.Abstract
     Operasyon--> Ekle, Sil, Güncelle,Listele,Filtrele vb.*/
 
 
-    public interface ICarDal
+    public interface ICarDal : IEntityRepository<Car>
 
     {
-
-        List <Car> GetAll();
-
-        List<Car> GetById(int CarId);
-        //Arabaları CarId göre filtrele
-
-
-        void Add(Car car);
-
-        void Update(Car car);
-
-        void Delete(Car car);
-
-
+        
     }
 }
