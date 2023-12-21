@@ -22,7 +22,7 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public void add(Car car)
+        public void Add(Car car)
         {
             if (car.CarName.Length >= 2 && car.DailyPrice > 0)
             {
@@ -34,9 +34,7 @@ namespace Business.Concrete
 
         }
 
-        public void Add(Car car)
-        {
-            _carDal.Add(car);        }
+        
 
         
         public void Delete(Car car)
@@ -44,10 +42,7 @@ namespace Business.Concrete
             _carDal.Delete(car);
         }
 
-        public void delete(Car car)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public List<Car> GetAll()
         {

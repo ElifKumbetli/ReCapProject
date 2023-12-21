@@ -11,7 +11,7 @@ namespace Business.Abstract
     //Add ref. --> DataAcces, Entity
     public interface ICarService
     {
-        List <Car> GetAll();
+        List <Car> GetAll(); //Tüm araçları getirme
 
         List<Car> GetCarsByBrandId(int id);
 
