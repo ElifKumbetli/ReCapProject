@@ -12,6 +12,9 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfColorDal : EfEntityRepositoryBase<Color, CarRentalDbContext>, IColorDal
     {
-        
+        public Color GetById(int colorId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

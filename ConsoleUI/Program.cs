@@ -12,103 +12,185 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+            //Data Transformation Object
+            //CarTest();
+            //BrandTest();
+            //ColorTest();
+
+        }
+
+        private static void ColorTest()
+        {
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+
+            // Yeni bir renk ekleme
+            Color newColor = new Color
+            {
+                ColorId = 5,
+                ColorName = "Mavi"
+            };
+            colorManager.Add(newColor);
+            Console.WriteLine("Renk eklendi.");
+
+            //GetById
+            int colorIdToGet = 2; // Örnek olarak 1 numaralı rengi getirmek istiyoruz.
+            Color colorById = colorManager.GetById(colorIdToGet);
+
+            if (colorById != null)
+            {
+                Console.WriteLine($"ID'si {colorIdToGet} olan renk: {colorById.ColorName}");
+            }
+            else
+            {
+                Console.WriteLine($"ID'si {colorIdToGet} olan renk bulunamadı.");
+            }
+
+            // Silme Testi
+            int colorIdToDelete = 3;
+            Color colorToDelete = colorManager.GetById(colorIdToDelete);
+
+            if (colorToDelete != null)
+            {
+                // Marka varsa silme işlemini gerçekleştir
+                colorManager.Delete(colorToDelete);
+                Console.WriteLine($"ID'si {colorToDelete} olan renk silindi.");
+            }
+            else
+            {
+                Console.WriteLine($"ID'si {colorIdToDelete} olan marka bulunamadığı için silme işlemi yapılamadı.");
+            }
+
+            // Renkleri listeleme
+            Console.WriteLine("Tüm Renkler: ");
+            foreach (var color in colorManager.GetAll())
+            {
+                Console.WriteLine(color.ColorName);
+            }
+        }
+
+        private static void BrandTest()
+        {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-
-            Console.WriteLine("Tüm Brandler: ");
-
             foreach (var brand in brandManager.GetAll())
             {
-                Console.WriteLine("BrandId: " + brand.BrandId + ", BrandName: " + brand.BrandName);
+                Console.WriteLine(brand.BrandName);
+            }
+            //Ekleme
+            Brand newBrand = new Brand
+            {
+                BrandId = 13,
+                BrandName = "Asdfgh"
+            };
+            brandManager.Add(newBrand);
+            Console.WriteLine("Marka eklendi");
 
+
+            // GetById (Id'ye Göre Getirme) Testi
+
+            int targetBrandId = 9; // Örnek olarak 9 numaralı markayı getirmek istiyoruz.
+            Brand targetBrand = brandManager.GetById(targetBrandId);
+
+            if (targetBrand != null)
+            {
+                Console.WriteLine($"ID'si {targetBrandId} olan marka: {targetBrand.BrandName}");
+            }
+            else
+            {
+                Console.WriteLine($"ID'si {targetBrandId} olan marka bulunamadı.");
             }
 
+            //SİLME
 
+            int brandIdToDelete = 13; // Sileceğimiz markanın ID'si
+            Brand brandToDelete = brandManager.GetById(brandIdToDelete);
 
-
-            /*List<Car> Arabalar = new List<Car>();
-            Arabalar = carManager.GetAll();
-            foreach (Car car in Arabalar) {
-            
-                carManager.Delete(car);
+            if (brandToDelete != null)
+            {
+                // Marka varsa silme işlemini gerçekleştir
+                brandManager.Delete(brandToDelete);
+                Console.WriteLine($"ID'si {brandIdToDelete} olan marka silindi.");
             }
-            Console.WriteLine("Arabalar silindi.");   */
+            else
+            {
+                Console.WriteLine($"ID'si {brandIdToDelete} olan marka bulunamadığı için silme işlemi yapılamadı.");
+            }
+            //Listeleme
+            List<Brand> allBrands = brandManager.GetAll();
+            Console.WriteLine("Tüm Markalar: ");
+            foreach (var brand in allBrands)
+            {
+                Console.WriteLine("Id: " + brand.BrandId + ", Marka Adı : " + brand.BrandName);
+            }
 
-            //CarTest();
-            //BrandManager brandManager = new BrandManager(new EfBrandDal());
-
-            //List<Brand> Markalar = new List<Brand>();
-
-
-            //Brand brand1 = new Brand();
-            // brand1.BrandId = 1;
-            //brand1.BrandName = "Marka1";
-            //Markalar.Add(brand1);
-
-            //Brand brand2 = new Brand();
-            //brand2.BrandId = 2;
-            //brand2.BrandName = "Marka2";
-            //Markalar.Add(brand2);
-
-
-            //Brand brand3 = new Brand();
-            // brand3.BrandId = 3;
-            //brand3.BrandName = "Marka3";
-            //Markalar.Add(brand3);
-
-            //foreach (Brand brand in Markalar)
-            //{
-
-            // brandManager.Add(brand);
-            //}
-            //Console.WriteLine("Markaalar eklendi.");
-            //}
-
-
-            //private static void CarTest()
-            //{
-            //    CarManager carManager = new CarManager(new EfCarDal());
-
-            //    List<Car> Arabalar = new List<Car>();
-
-            //    Car car1 = new Car();
-            //    car1.CarName = "Toyota";
-            //    car1.BrandId = 1;
-            //    car1.ColorId = 1;
-            //    car1.ModelYear = 2019;
-            //    car1.DailyPrice = 1000;
-            //    car1.Description = "2019 model Toyota";
-
-            //    Arabalar.Add(car1);
-
-            //    Car car2 = new Car();
-            //    car2.CarName = "Ford";
-            //    car2.BrandId = 1;
-            //    car2.ColorId = 2;
-            //    car2.ModelYear = 2020;
-            //    car2.DailyPrice = 1500;
-            //    car2.Description = "2020 model Ford";
-
-            //    Arabalar.Add(car2);
-
-
-            //    Car car3 = new Car();
-            //    car3.CarName = "a";
-            //    car3.BrandId = 1;
-            //    car3.ColorId = 2;
-            //    car3.ModelYear = 2020;
-            //    car3.DailyPrice = 1500;
-            //    car3.Description = "deneme";
-
-            //    Arabalar.Add(car3);
-
-
-
-            //    foreach (Car car in Arabalar)
-            //    {
-
-            //        carManager.Add(car);
-            //    }
-            //    Console.WriteLine("Arabalar eklendi.");
         }
+
+        private static void CarTest()
+        {
+           
+                EfCarDal efCarDal = new EfCarDal();
+
+                Console.WriteLine("Araç Detayları:");
+
+                foreach (var carDetail in efCarDal.GetCarDetails())
+                {
+                Console.WriteLine("Car Name: " + carDetail.CarName + ", Brand: " + carDetail.BrandName + ", Color: " + carDetail.ColorName + ", Daily Price: " + carDetail.DailyPrice);
+            }
+
+
+
+            //CarManager carManager = new CarManager(new EfCarDal());
+
+            ////Insert Ekleme testi
+            //Car newCar = new Car
+            //{
+            //    CarName = "Renault",
+            //    BrandId = 2,
+            //    ColorId = 3,
+            //    ModelYear = 2022,
+            //    DailyPrice = 1500,
+            //    Description = "2022 Model Renault"
+            //};
+            //carManager.Add(newCar);
+            //Console.WriteLine("Araba Eklendi.");
+
+            ////GetAll(Tümünü Getrime) Testi
+            //List<Car> allCars = carManager.GetAll();
+            //Console.WriteLine("Tüm Araçlar: ");
+            //foreach (var car in allCars)
+            //{
+            //    Console.WriteLine("ID: " + car.CarId + ", Ad: " + car.CarName + ", Marka ID: " + car.BrandId + ", Renk ID: " + car.ColorId + ", Model Yılı: " + car.ModelYear + ", Günlük Fiyat: " + car.DailyPrice + ", Açıklama: " + car.Description);
+            //}
+
+            //// GetById (Id'ye Göre Getirme) Testi
+            //int carIdToGet = newCar.CarId; // Eklenen aracın ID'sini al
+            //Car carById = carManager.GetById(carIdToGet);
+
+            //if (carById != null)
+            //{
+            //    Console.WriteLine("ID'si " + carIdToGet + " olan araç: " + carById.CarName);
+            //}
+            //else
+            //{
+            //    Console.WriteLine("ID'si " + carIdToGet + " olan araç bulunamadı.");
+            //}
+
+            //// Update (Güncelleme) Testi
+            //if (carById != null)
+            //{
+            //    carById.CarName = "Updated Renault";
+            //    carById.ModelYear = 2023;
+            //    carById.DailyPrice = 1600;
+            //    carById.Description = "Güncellenmiş Renault";
+
+            //    carManager.Update(carById);
+            //    Console.WriteLine("Araba Güncellendi.");
+            //}
+            //// Delete (Silme) Testi
+            //if (carById != null)
+            //{
+            //    carManager.Delete(carById);
+            //    Console.WriteLine("Araba Silindi.");
+            //}
         }
     }
+}
