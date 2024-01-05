@@ -13,7 +13,7 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             //Data Transformation Object
-            //CarTest();
+            CarTest();
             //BrandTest();
             //ColorTest();
 
@@ -126,17 +126,23 @@ namespace ConsoleUI
 
         private static void CarTest()
         {
-           
-                EfCarDal efCarDal = new EfCarDal();
 
-                Console.WriteLine("Araç Detayları:");
+            CarManager carManager = new CarManager(new EfCarDal());
 
-                foreach (var carDetail in efCarDal.GetCarDetails())
+            var result = carManager.GetCarDetails();
+
+            if (result.Success)
+            {
+                foreach (var car in result.Data)
                 {
-                Console.WriteLine("Car Name: " + carDetail.CarName + ", Brand: " + carDetail.BrandName + ", Color: " + carDetail.ColorName + ", Daily Price: " + carDetail.DailyPrice);
+                    Console.WriteLine(car.CarName + "/" + car.CarName);
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
 
-
+            }
 
             //CarManager carManager = new CarManager(new EfCarDal());
 

@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Core.Utilities.Results;
+using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
@@ -12,20 +13,22 @@ namespace Business.Abstract
     //Add ref. --> DataAcces, Entity
     public interface ICarService
     {
-        List <Car> GetAll(); //Tüm araçları getirme
+        IDataResult<List<Car>> GetAll(); //Tüm araçları getirme
 
-        List <Car> GetById(int id);
+        IDataResult<Car> GetById(int carId);
 
-        List<Car> GetCarsByBrandId(int id);
+        IDataResult<List<Car>> GetCarsByBrandId(int id);
 
-        List<Car> GetCarsByColorId(int id);
+        IDataResult<List<Car>> GetCarsByColorId(int id);
 
-        void Add(Car car);
+        IResult Add(Car car);
 
-        void Update(Car car);
+        IResult Update(Car car);
 
-        void Delete(Car car);
+        IResult Delete(Car car);
 
-        List<CarDetailDto> GetCarDetails();
+        IDataResult<List<CarDetailDto>> GetCarDetails();
+
+        //void olan IResult çünkü onda Data yok!
     }
 }
