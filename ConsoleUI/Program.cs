@@ -13,10 +13,42 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             //Data Transformation Object
-            CarTest();
+            //CarTest();
             //BrandTest();
             //ColorTest();
 
+            //CustomerTest();
+        }
+
+        private static void CustomerTest()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            //Müşteri ekleme
+
+            Customer newcustomer = new Customer
+            {
+                UserId = 1,
+                CompanyName = "Şirket1"
+            };
+            customerManager.Add(newcustomer);
+            Console.WriteLine("Müşteri eklendi");
+
+            Customer newcustomer2 = new Customer
+            {
+                UserId = 2,
+                CompanyName = "Şirket2"
+            };
+            customerManager.Add(newcustomer2);
+            Console.WriteLine("Müşteri eklendi");
+
+            Customer newcustomer3 = new Customer
+            {
+                UserId = 3,
+                CompanyName = "Şirket3"
+            };
+
+            customerManager.Add(newcustomer3);
+            Console.WriteLine("Müşteri eklendi");
         }
 
         private static void ColorTest()
@@ -34,7 +66,7 @@ namespace ConsoleUI
 
             //GetById
             int colorIdToGet = 2; // Örnek olarak 1 numaralı rengi getirmek istiyoruz.
-            Color colorById = colorManager.GetById(colorIdToGet);
+            Color colorById = colorManager.GetById(colorIdToGet).Data;
 
             if (colorById != null)
             {
@@ -47,7 +79,7 @@ namespace ConsoleUI
 
             // Silme Testi
             int colorIdToDelete = 3;
-            Color colorToDelete = colorManager.GetById(colorIdToDelete);
+            Color colorToDelete = colorManager.GetById(colorIdToDelete).Data;
 
             if (colorToDelete != null)
             {
@@ -62,7 +94,7 @@ namespace ConsoleUI
 
             // Renkleri listeleme
             Console.WriteLine("Tüm Renkler: ");
-            foreach (var color in colorManager.GetAll())
+            foreach (var color in colorManager.GetAll().Data)
             {
                 Console.WriteLine(color.ColorName);
             }
@@ -71,7 +103,7 @@ namespace ConsoleUI
         private static void BrandTest()
         {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-            foreach (var brand in brandManager.GetAll())
+            foreach (var brand in brandManager.GetAll().Data)
             {
                 Console.WriteLine(brand.BrandName);
             }
@@ -88,7 +120,7 @@ namespace ConsoleUI
             // GetById (Id'ye Göre Getirme) Testi
 
             int targetBrandId = 9; // Örnek olarak 9 numaralı markayı getirmek istiyoruz.
-            Brand targetBrand = brandManager.GetById(targetBrandId);
+            Brand targetBrand = brandManager.GetById(targetBrandId).Data;
 
             if (targetBrand != null)
             {
@@ -102,7 +134,7 @@ namespace ConsoleUI
             //SİLME
 
             int brandIdToDelete = 13; // Sileceğimiz markanın ID'si
-            Brand brandToDelete = brandManager.GetById(brandIdToDelete);
+            Brand brandToDelete = brandManager.GetById(brandIdToDelete).Data;
 
             if (brandToDelete != null)
             {
@@ -115,7 +147,7 @@ namespace ConsoleUI
                 Console.WriteLine($"ID'si {brandIdToDelete} olan marka bulunamadığı için silme işlemi yapılamadı.");
             }
             //Listeleme
-            List<Brand> allBrands = brandManager.GetAll();
+            List<Brand> allBrands = brandManager.GetAll().Data;
             Console.WriteLine("Tüm Markalar: ");
             foreach (var brand in allBrands)
             {

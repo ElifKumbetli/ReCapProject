@@ -1,47 +1,60 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
     public class BrandManager : IBrandService
     {
-        IBrandDal _brandDal;
+        private readonly IBrandDal _brandDal;
 
         public BrandManager(IBrandDal brandDal)
         {
             _brandDal = brandDal;
         }
 
-        public List<Brand> GetAll()
+        public IResult Add(Brand brand)
         {
-            //İş Kodları
-            return _brandDal.GetAll();
-        }
+            if (string.IsNullOrEmpty(brand.BrandName))
+            {
+                return new ErrorResult(Messages.BrandNameInvalid);
+            }
 
-        public Brand GetById(int BrandId)
-        {
-            return _brandDal.Get(b=>b.BrandId == BrandId);
-        }
-
-
-        public void Add(Brand brand)
-        {
             _brandDal.Add(brand);
+            return new SuccessResult(Messages.BrandAdded);
         }
 
-        public void Update(Brand brand)
+        public IResult Update(Brand brand)
         {
-            _brandDal.Update(brand);        }
+            _brandDal.Update(brand);
+            return new SuccessResult(Messages.BrandUpdated);
+        }
 
-        public void Delete(Brand brand)
+        public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
+            return new SuccessResult(Messages.BrandDeleted);
+        }
+
+        public IDataResult<List<Brand>> GetAll()
+        {
+            var brands = _brandDal.GetAll();
+            return new SuccessDataResult<List<Brand>>(brands, Messages.BrandsListed);
+        }
+
+        public IDataResult<Brand> GetById(int brandId)
+        {
+            var brand = _brandDal.Get(b => b.BrandId == brandId);
+            return new SuccessDataResult<Brand>(brand, Messages.BrandsListed);
+        }
+
+        IDataResult<List<Brand>> IBrandService.GetById(int BrandId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

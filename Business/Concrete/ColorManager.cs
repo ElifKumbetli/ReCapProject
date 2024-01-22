@@ -1,74 +1,49 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
-using System;
 using System.Collections.Generic;
 
 namespace Business.Concrete
 {
     public class ColorManager : IColorService
     {
-        IColorDal _colorDal;
+        private readonly IColorDal _colorDal;
 
         public ColorManager(IColorDal colorDal)
         {
             _colorDal = colorDal;
         }
 
-        public void Add(Color color)
+        public IResult Add(Color color)
         {
-            // Implemente etmek istediğiniz işlemleri burada gerçekleştirin
             _colorDal.Add(color);
+            return new SuccessResult(Messages.ColorAdded);
         }
 
-        public void Add(System.Drawing.Color color)
+        public IResult Delete(Color color)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(Color color)
-        {
-            // Implemente etmek istediğiniz işlemleri burada gerçekleştirin
             _colorDal.Delete(color);
+            return new SuccessResult(Messages.ColorDeleted);
         }
 
-        public void Delete(System.Drawing.Color color)
+        public IDataResult<List<Color>> GetAll()
         {
-            throw new NotImplementedException();
+            var colors = _colorDal.GetAll();
+            return new SuccessDataResult<List<Color>>(colors, Messages.ColorsListed);
         }
 
-        public List<Color> GetAll()
+        public IDataResult<Color> GetById(int colorId)
         {
-            // Implemente etmek istediğiniz işlemleri burada gerçekleştirin
-            return _colorDal.GetAll();
+            var color = _colorDal.Get(c => c.ColorId == colorId);
+            return new SuccessDataResult<Color>(color, Messages.ColorsListed);
         }
 
-        // ColorManager.cs
-        public Color GetById(int colorId)
+        public IResult Update(Color color)
         {
-            return _colorDal.Get(c => c.ColorId == colorId);
-        }
-
-
-        public void Update(Color color)
-        {
-            // Implemente etmek istediğiniz işlemleri burada gerçekleştirin
             _colorDal.Update(color);
-        }
-
-        public void Update(System.Drawing.Color color)
-        {
-            throw new NotImplementedException();
-        }
-
-        List<System.Drawing.Color> IColorService.GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        System.Drawing.Color IColorService.GetById(int colorId)
-        {
-            throw new NotImplementedException();
+            return new SuccessResult(Messages.ColorUpdated);
         }
     }
 }

@@ -26,6 +26,8 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
+       
+
         public IResult Add(Car car)
         {
             //if (car.CarName.Length >= 2 && car.DailyPrice > 0)
@@ -48,17 +50,14 @@ namespace Business.Concrete
 
 
         public IDataResult<List<Car>> GetAll()
-        {
-            if (DateTime.Now.Hour == 22)
+        {   //İŞ KODLARI
+            //Yetkisi var mı?
+            if (DateTime.Now.Hour == 14)
             {
                 return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);//bakım zamanı
             }
 
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarsListed);
-            //İŞ KODLARI
-            //Yetkisi var mı?
-
-
         }
 
         public IDataResult<Car> GetById(int carId)
@@ -74,20 +73,20 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == id));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id));
         }
 
 
         public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == id));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id));
         }
 
 
 
         IResult ICarService.Delete(Car car)
         {
-            throw new NotImplementedException();
+            return new SuccessResult(Messages.RentalDeleted);
         }
 
         IResult ICarService.Update(Car car)
