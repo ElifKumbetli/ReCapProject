@@ -8,6 +8,8 @@ using System.Runtime.ConstrainedExecution;
 
 namespace ConsoleUI
 {
+   
+
     class Program
     {
         static void Main(string[] args)
@@ -18,6 +20,8 @@ namespace ConsoleUI
             //ColorTest();
 
             //CustomerTest();
+            
+
         }
 
         private static void CustomerTest()

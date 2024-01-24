@@ -2,6 +2,7 @@
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Business.Concrete
 {
     public class BrandManager : IBrandService
     {
-        private readonly IBrandDal _brandDal;
+        private  IBrandDal _brandDal;
 
         public BrandManager(IBrandDal brandDal)
         {
@@ -42,9 +43,18 @@ namespace Business.Concrete
 
         public IDataResult<List<Brand>> GetAll()
         {
-            var brands = _brandDal.GetAll();
-            return new SuccessDataResult<List<Brand>>(brands, Messages.BrandsListed);
+            if(DateTime.Now.Hour == 23)
+            {
+                return new ErrorDataResult<List<Brand>>(Messages.MaintenanceTime);
+              }
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(),Messages.BrandsListed);
+            //var brands = _brandDal.GetAll();
+            //return new SuccessDataResult<List<Brand>>(brands, Messages.BrandsListed);
         }
+
+
+
+
 
         public IDataResult<Brand> GetById(int brandId)
         {
@@ -52,9 +62,8 @@ namespace Business.Concrete
             return new SuccessDataResult<Brand>(brand, Messages.BrandsListed);
         }
 
-        IDataResult<List<Brand>> IBrandService.GetById(int BrandId)
-        {
-            throw new NotImplementedException();
-        }
+
+
+
     }
 }

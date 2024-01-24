@@ -16,6 +16,18 @@ builder.Services.AddSwaggerGen();//startup olmadýðý için kodlar buranýnýn altýna
 builder.Services.AddSingleton<ICarService, CarManager>();
 builder.Services.AddSingleton<ICarDal, EfCarDal>();
 
+builder.Services.AddSingleton<IBrandService, BrandManager>();
+builder.Services.AddSingleton<IBrandDal, EfBrandDal>();
+
+
+builder.Services.AddSingleton<IColorService, ColorManager>();
+builder.Services.AddSingleton<IColorDal, EfColorDal>();
+
+builder.Services.AddSingleton<ICustomerService, CustomerManager>();
+builder.Services.AddSingleton<ICustomerDal, EfCustomerDal>();
+
+builder.Services.AddSingleton<IRentalService, RentalManager>();
+builder.Services.AddSingleton<IRentalDal, EfRentalDal>();
 
 var app = builder.Build();
 
