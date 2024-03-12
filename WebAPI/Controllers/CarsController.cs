@@ -11,7 +11,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CarsController : ControllerBase
     {
-        private readonly object carService;
+        public readonly object carService;
         ICarService _carService;
 
         //Loose coupled gevşek bağlılık

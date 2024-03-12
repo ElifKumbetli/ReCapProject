@@ -9,7 +9,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class BrandsController : ControllerBase
     {
-        private readonly object brandService;
+        public readonly object brandService;
         IBrandService _brandService;
 
         //Loose coupled gevşek bağlılık
